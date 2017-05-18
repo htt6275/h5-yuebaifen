@@ -8,12 +8,12 @@
 			</div>
 			<div class="page-bd">
 				<form name="signinForm">
-					<mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="form.mobile"></mt-field>
-					<mt-field label="密码" placeholder="请输入密码" type="password" v-model="form.pass"></mt-field>
-					<mt-button type="default" size="large" class="signin-button" @click.native="handleClick('signinForm')">登 录</mt-button>
+					<mt-field label="手机号" placeholder="请输入手机号" type="tel" class="icon_phone" v-model="form.mobile"></mt-field>
+					<mt-field label="密码" placeholder="请输入密码" type="password" class="icon_pass" v-model="form.pass"></mt-field>
+					<mt-button type="default" size="large" class="signin-button" @click.native="onSubmit">登 录</mt-button>
 				</form>
 			</div>
-			<div class="page-fd">
+			<div class="page-ft">
 				<p class="text-center">
 					<router-link to="/foo">忘记密码</router-link>|
     			<router-link to="/bar">短信验证登录</router-link>
@@ -24,6 +24,7 @@
 </template>
 <script>
 import { requestLogin } from '../api'
+import Validate from '../assets/js/WxValidate'
 import Md5 from '../assets/js/md5'
 export default {
 	data () {
@@ -31,50 +32,48 @@ export default {
 			form: {
 				mobile: '',
 				pass: ''
-		  },
-			rules: {
-				mobile: [
-          { required: true, message: '请输入手机号' },
-          { type: 'tel', message: '手机号码格式有误' }
-        ],
-        password: [
-        	{ required: true, message: '请输入密码'},
-        	{ min: 6, message: '密码长度在 6 到 20 位之间'}
-        ]
-			}
+		  }
 		}
 	},
 	methods: {
-		showToast (msg) {
+		showToast (error) {
 			this.$toast({
-			  message: msg,
-			  position: 'middle',
-			  duration: 2000
+			  message: error.msg,
+			  // position: 'middle',
+			  duration: 1000
 			})
 		},
-		required (value) {
-			return value.length > 0
-		},
-		tel(value) {
-			return /^1[34578]\d{9}$/.test(value)
-		},
-		handleClick () {
-			let mobile = this.form.mobile
-			let password = this.form.pass
-			if (!this.required(mobile)) {
-				this.showToast(this.rules.mobile[0].message)
-				return false
-			} else if(!this.tel(mobile)) {
-				this.showToast(this.rules.mobile[1].message)
-				return false
-			} else if (!this.required(password)) {
-				this.showToast(this.rules.password[0].message)
-				return false
-			}
-			let form = {
-				mobile: mobile,
-				pass: Md5.hex_md5(password)
-			}
+		initValidate() {
+	    this.validate = new Validate({
+	      mobile: {
+	        required: true,
+	        tel: true, 
+	      },
+	      pass: {
+	        required: true,
+	        minlength: 6 
+	      }
+	    }, {
+	      mobile: {
+	        required: '请输入手机号',
+	        tel: '请输入正确手机号'
+	      },
+	      pass: {
+	        required: '请输入密码',
+	        minlength: '密码不少于6位'
+	      },
+	    })
+    },
+		onSubmit () {
+			if (!this.validate.checkForm(this.form)) {
+	      const error = this.validate.errorList[0]
+	      this.showToast(error)
+	      return false
+	    }
+	    let form = {
+	    	mobile: this.form.mobile,
+	    	pass: this.form.pass
+	    }
 			requestLogin(form).then(res => {
 				console.log(res)
 				if(res.data.code === 0) {
@@ -92,22 +91,10 @@ export default {
 			.catch(function (error) {
         console.log(error)
       })
-		},
-		validForm (rules) {
-			let self = this
-			for (let i in rules) {
-				console.log(i, rules[i])
-
-				for(let j = 0; j < rules[i].length; j++) {
-					console.log(rules[i][j])
-				}
-			}
-			this.$toast({
-			  message: '密码长度在6到20位之间',
-			  position: 'middle',
-			  duration: 2000
-			})
 		}
+	},
+	mounted () {
+		this.initValidate()
 	}
 }
 </script>
@@ -121,31 +108,35 @@ export default {
 	}
 	.signup-link {
 		position: absolute;
-		top: 10px;
-		right: 10px;
+		top: 5px;
+		right: 5px;
+		padding: 10px;
 		color: #fff;
 	}
 	.logo {
 		padding: 20px;
+		text-align: center
 	}
 	.page-bd {
 		padding: 15px;
 		color: #fff;
 	}
-	.mint-cell {
-		border-bottom: 1px solid #ddd;
-		background: transparent;
-	}
 	.signin-button {
 		margin-top: 30px;
+		color: #00b4e7;
+		background: #fff
 	}
-	.page-fd {
+	.signin-button:focus {
+		background: #fff
+	}
+	.page-ft {
 		position: absolute;
 		bottom: 0;
 		width: 100%;
-		color: #fff;
+		color: #ddd;
+		font-size: 14px
 	}
-	.page-fd a {
+	.page-ft a {
 		padding: 0 10px;
 	}
 </style>

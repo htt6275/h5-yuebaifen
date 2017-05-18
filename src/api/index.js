@@ -6,3 +6,9 @@ axios.defaults.transformRequest = [(data) => { return Qs.stringify(data) }]
 axios.defaults.timeout = 5000
 
 export const requestLogin = data => { return axios.post('/user/loginByMobileAndPassword.json', data) }
+
+export const getRandomImage = () => { return axios.get('/user/getRandomImage.json') }
+
+export const getMobileSmsCode = data => { return axios.post('/sms/getMobileSmsCode.json', data) }
+
+export const requestRegister = data => { return axios.post('/user/registe.json', data) }

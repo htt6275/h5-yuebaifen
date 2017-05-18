@@ -1,0 +1,135 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  color: #333;
+  font-size: 14px
+}
+ul {
+  padding: 0;
+  list-style: none
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.clearfix:after,
+.clearfix:before,
+.container:after,
+.container:before,
+.container-fluid:after,
+.container-fluid:before {
+  display: table;
+  content: '';
+}
+.clearfix:after,
+.container:after,
+.container-fluid:after {
+  clear: both
+}
+.container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.pull-right {
+  float: right
+}
+.pull-left {
+  float: left
+}
+.m-t {
+  margin-top: 15px
+}
+.m-b-5 {
+  margin-bottom: 5px
+}
+.m-b {
+  margin-bottom: 15px
+}
+.m-r {
+  margin-right: 15px;
+}
+.m-l {
+  margin-left: 15px;
+}
+.text-center {
+  text-align: center
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.transition {
+  transition: all .3s
+}
+.mint-header {
+  font-size: 16px
+}
+.mint-cell,
+.mint-cell:last-child {
+  background: none;
+}
+.mint-cell-wrapper {
+  font-size: 14px;
+  background-position: bottom;
+}
+.mint-cell:last-child .mint-cell-wrapper {
+  background: none
+}
+.mint-field .mint-cell-title {
+  width: 90px;
+}
+.mint-field-core {
+  color: #fff;
+  font-size: 14px;
+  background: transparent;
+}
+.signup-form .mint-field-core {
+  color: #333;
+}
+.mint-field-other {
+  right: -10px;
+}
+.mint-field-other .mint-button--small {
+  font-size: 12px
+}
+.mint-field-other .img-code {
+  width: 84px;
+  height: 33px
+}
+a[class*="icon"] .mint-cell-title {
+  width: 40px;
+}
+.mint-cell-text {
+  color: #555;
+  font-size: 14px
+}
+a[class*="icon"] .mint-cell-text {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-indent: -2000em;
+}
+.icon_phone .mint-cell-text {
+  background: url(../img/phone.png) no-repeat
+}
+.icon_pass .mint-cell-text {
+  background: url(../img/lock.png) no-repeat
+}
+.mint-checklist .mint-cell{
+  min-height: 20px
+}
+.mint-checklist .mint-cell-wrapper {
+  padding: 0;
+}
+.mint-checkbox-label {
+  margin-left: 0;
+}
+.mint-checkbox-core::after {
+  width: 5px;
+  height: 10px;
+}

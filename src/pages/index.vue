@@ -1,21 +1,25 @@
 <template>
 	<section>
-		<div class="page-main transition" v-bind:class="{'open': isSideOpen}">
+		<div class="page-main transition" v-bind:class="{'collapsed': isSideOpen}">
 			<div class="page-hd clearfix">
-				<img src="../assets/img/avatar.png" class="avatar" @click="toggle">
+				<img src="../assets/img/user.png" class="avatar" @click="sideToggle">
 			</div>
 			<div class="page-bd">
 				<img src="../assets/img/logo.png" class="logo">
 				<p class="desc"><span>{{text}}</span>|<span>零手续费</span>|<span>审批更快</span></p>
 			</div>
 			<div class="page-ft">
-				<img src="../assets/img/scan.png" class="icon-scan">
-				<span>扫码申请分期</span>
+        <label for="qrcode">
+          <img src="../assets/img/scan.png" class="icon-scan">
+          <span>扫码申请分期</span>
+          <input type="file" id="qrcode" accept="image/jpeg, image/png" stlye="display: none" @change="imgChange">
+          <img src="" alt="" id="qrcodeImg">
+        </label>
 			</div>
 		</div>
 		<aside class="sidebar transition" v-bind:class="{'open': isSideOpen}">
 			<div class="sidebar-top text-center">
-				<img src="../assets/img/avatar_big.png" class="sidebar-avatar">
+				<img src="../assets/img/avatar-circle.png" class="sidebar-avatar">
 				<p class="account">15210647536</p>
 			</div>
 			<ul class="sidebar-menu">
@@ -27,35 +31,43 @@
 	</section>
 </template>
 <script>
-	export default {
-		data () {
-			return {
-				text: '额度更高',
-				isSideOpen: true
-			}
-		},
-		methods: {
-			toggle (e) {
-				console.log(e)
-				this.isSideOpen = !this.isSideOpen
-			}
+export default {
+	data () {
+		return {
+			text: '额度更高',
+			isSideOpen: false,
+      qrcode: ''
 		}
+	},
+	methods: {
+		sideToggle (e) {
+			console.log(e)
+			this.isSideOpen = !this.isSideOpen
+		},
+    imgChange (e) {
+      console.log(e)
+      let qrcodeFile = document.getElementById('qrcode')
+      console.log(qrcode.files)
+      const reader = new FileReader();
+      reader.onload = function(e){
+        document.getElementById('qrcodeImg').setAttribute('src', e.target.result)
+      }
+      reader.readAsDataURL(qrcode.files[0])
+    }
 	}
+}
 </script>
 <style scoped>
-	section {
-		overflow: hidden
-	}
 	.page-main {
 		position: fixed;
-		left: 70%;
+		left: 0;
 		width: 100%;
 		height: 100%;
 		background: url(../assets/img/yue_bg.png) no-repeat;
 		background-size: 100% 100%;
 	}
-	.page-main.open {
-		left: 0;
+	.page-main.collapsed {
+		left: 70%;
 	}
 	.page-hd {
 		width: 100%;
@@ -71,6 +83,7 @@
   }
   .page-bd {
 		padding: 20px;
+		text-align: center
   }
   .logo {
   	width: 200px;
@@ -101,14 +114,14 @@
   }
   .sidebar {
   	position: fixed;
-  	left: 0;
+  	left: -70%;
   	width: 70%;
   	height: 100%;
   	padding: 20px;
   	background: #fff
   }
   .sidebar.open {
-		left: -70%;
+		left: 0;
 	}
   .sidebar-top {
   	padding: 20px;
@@ -139,7 +152,7 @@
 		background: url(../assets/img/user.png) no-repeat;
   }
   .sidebar-menu li a.problem::before {
-		background: url(../assets/img/problem.png) no-repeat;
+		background: url(../assets/img/problem-circle.png) no-repeat;
   }
   .sidebar-menu li a.exit::before {
 		background: url(../assets/img/exit.png) no-repeat;
