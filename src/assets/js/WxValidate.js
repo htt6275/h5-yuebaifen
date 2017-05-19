@@ -124,7 +124,7 @@ class WxValidate {
 			 * 验证两个输入框的内容是否相同
 			 */
 			equalTo(value, param) {
-				return that.optional(value) || value === that.scope.param
+				return that.optional(value) || value === that.scope[param]
 			},
 			/**
 			 * 验证是否包含某个值

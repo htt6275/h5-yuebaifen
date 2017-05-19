@@ -58,6 +58,9 @@ a {
 .text-center {
   text-align: center
 }
+.text-indent {
+  text-indent: 2em
+}
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -65,6 +68,13 @@ a {
 }
 .transition {
   transition: all .3s
+}
+.fade-enter-active, .fade-leave-active {
+  transition: all .1s;
+}
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100px);
 }
 .mint-header {
   font-size: 16px
@@ -99,7 +109,8 @@ a {
 }
 .mint-field-other .img-code {
   width: 84px;
-  height: 33px
+  height: 33px;
+  border-radius: 4px
 }
 a[class*="icon"] .mint-cell-title {
   width: 40px;
@@ -120,6 +131,14 @@ a[class*="icon"] .mint-cell-text {
 .icon_pass .mint-cell-text {
   background: url(../img/lock.png) no-repeat
 }
+.field-group {
+  margin-bottom: 10px;
+  padding: 0 15px;
+  background: #fff
+}
+.field-group:last-child {
+  background: #f2f3f4;
+}
 .mint-checklist .mint-cell{
   min-height: 20px
 }
@@ -132,4 +151,14 @@ a[class*="icon"] .mint-cell-text {
 .mint-checkbox-core::after {
   width: 5px;
   height: 10px;
+}
+.mint-cell-allow-right::after {
+  width: 8px;
+  height: 8px;
+  border: solid 1px #c8c8cd;
+  border-bottom-width: 0;
+  border-left-width: 0;
+}
+.cell-group .mint-cell-title {
+  padding-left: 10px;
 }

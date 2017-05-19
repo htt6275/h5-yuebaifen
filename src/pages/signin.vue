@@ -15,8 +15,8 @@
 			</div>
 			<div class="page-ft">
 				<p class="text-center">
-					<router-link to="/foo">忘记密码</router-link>|
-    			<router-link to="/bar">短信验证登录</router-link>
+					<router-link to="/resetpass">忘记密码</router-link>|
+    			<router-link to="/smsLogin">短信验证登录</router-link>
 				</p>
 			</div>
 		</div>

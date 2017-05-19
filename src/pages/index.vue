@@ -12,8 +12,7 @@
         <label for="qrcode">
           <img src="../assets/img/scan.png" class="icon-scan">
           <span>扫码申请分期</span>
-          <input type="file" id="qrcode" accept="image/jpeg, image/png" stlye="display: none" @change="imgChange">
-          <img src="" alt="" id="qrcodeImg">
+         <!--  <input type="file" id="qrcode" accept="image/jpeg, image/png" stlye="display: none" @change="imgChange"> -->
         </label>
 			</div>
 		</div>
@@ -23,7 +22,7 @@
 				<p class="account">15210647536</p>
 			</div>
 			<ul class="sidebar-menu">
-				<li><router-link to="/user" class="user">我的账户</router-link></li>
+				<li><router-link to="/account" class="user">我的账户</router-link></li>
 				<li><router-link to="/problem" class="problem">常见问题</router-link></li>
 				<li><router-link to="/exit" class="exit">退出登录</router-link></li>
 			</ul>
@@ -31,6 +30,7 @@
 	</section>
 </template>
 <script>
+// import '../assets/js/src/qcode-decoder.min.js'
 export default {
 	data () {
 		return {
@@ -44,22 +44,22 @@ export default {
 			console.log(e)
 			this.isSideOpen = !this.isSideOpen
 		},
-    imgChange (e) {
-      console.log(e)
-      let qrcodeFile = document.getElementById('qrcode')
-      console.log(qrcode.files)
-      const reader = new FileReader();
-      reader.onload = function(e){
-        document.getElementById('qrcodeImg').setAttribute('src', e.target.result)
-      }
-      reader.readAsDataURL(qrcode.files[0])
-    }
+    // imgChange (e) {
+    //   console.log(e)
+    //   let qrcodeFile = document.getElementById('qrcode')
+    //   console.log(qrcode.files)
+    //   const reader = new FileReader();
+    //   reader.onload = function(e){
+    //     document.getElementById('qrcodeImg').setAttribute('src', e.target.result)
+    //   }
+    //   reader.readAsDataURL(qrcode.files[0])
+    // }
 	}
 }
 </script>
 <style scoped>
 	.page-main {
-		position: fixed;
+		position: absolute;
 		left: 0;
 		width: 100%;
 		height: 100%;
@@ -113,7 +113,7 @@ export default {
   	vertical-align: middle
   }
   .sidebar {
-  	position: fixed;
+  	position: absolute;
   	left: -70%;
   	width: 70%;
   	height: 100%;
@@ -129,6 +129,10 @@ export default {
   }
   .sidebar-avatar {
   	margin-bottom: 15px;
+  }
+  .account {
+    margin: 5px;
+    font-size: 16px;
   }
   .sidebar-menu {
   	text-align: left;
@@ -149,7 +153,7 @@ export default {
   	background-size: cover;
   }
   .sidebar-menu li a.user::before {
-		background: url(../assets/img/user.png) no-repeat;
+		background: url(../assets/img/user-circle.png) no-repeat;
   }
   .sidebar-menu li a.problem::before {
 		background: url(../assets/img/problem-circle.png) no-repeat;
