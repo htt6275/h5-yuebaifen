@@ -39,7 +39,6 @@ export default {
 		showToast (error) {
 			this.$toast({
 			  message: error.msg,
-			  // position: 'middle',
 			  duration: 1000
 			})
 		},

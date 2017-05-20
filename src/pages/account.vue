@@ -13,7 +13,7 @@
 		</div>
 		<div class="page-bd">
 			<div class="cell-group">
-				<mt-cell title="申请记录" to="/record" is-link>
+				<mt-cell title="申请记录" to="/records" is-link>
 				  <img slot="icon" src="../assets/img/record.png">
 				</mt-cell>
 			</div>
@@ -21,7 +21,7 @@
 				<mt-cell title="个人信息" to="/accountinfo" is-link>
 				  <img slot="icon" src="../assets/img/user-square.png">
 				</mt-cell>
-				<mt-cell title="修改密码" to="/updatepass" is-link>
+				<mt-cell title="修改密码" to="/modifypass" is-link>
 				  <img slot="icon" src="../assets/img/bill.png">
 				</mt-cell>
 				<mt-cell title="常见问题" to="/problem" is-link>

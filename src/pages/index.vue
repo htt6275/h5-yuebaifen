@@ -12,7 +12,7 @@
         <label for="qrcode">
           <img src="../assets/img/scan.png" class="icon-scan">
           <span>扫码申请分期</span>
-         <!--  <input type="file" id="qrcode" accept="image/jpeg, image/png" stlye="display: none" @change="imgChange"> -->
+          <input type="file" id="qrcode" accept="image/jpeg, image/png" @change="imgChange">
         </label>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 				<p class="account">15210647536</p>
 			</div>
 			<ul class="sidebar-menu">
-				<li><router-link to="/account" class="user">我的账户</router-link></li>
+				<li><router-link to="/myaccount" class="myaccount">我的账户</router-link></li>
 				<li><router-link to="/problem" class="problem">常见问题</router-link></li>
 				<li><router-link to="/exit" class="exit">退出登录</router-link></li>
 			</ul>
@@ -30,7 +30,7 @@
 	</section>
 </template>
 <script>
-// import '../assets/js/src/qcode-decoder.min.js'
+import { qcodeDecoder } from '../api' 
 export default {
 	data () {
 		return {
@@ -44,27 +44,48 @@ export default {
 			console.log(e)
 			this.isSideOpen = !this.isSideOpen
 		},
-    // imgChange (e) {
-    //   console.log(e)
-    //   let qrcodeFile = document.getElementById('qrcode')
-    //   console.log(qrcode.files)
-    //   const reader = new FileReader();
-    //   reader.onload = function(e){
-    //     document.getElementById('qrcodeImg').setAttribute('src', e.target.result)
-    //   }
-    //   reader.readAsDataURL(qrcode.files[0])
-    // }
+    showToast (msg) {
+      this.$toast({
+        message: msg,
+        duration: 2000
+      })
+    },
+    imgChange (e) {
+      console.log(e)
+      let qrcodeFile = document.getElementById('qrcode')
+      console.log(qrcode.files)
+      // qcodeDecoder(qrcode.files).then(res => {
+      //   console.log(res)
+      // })
+      let result = '{"shopUuid": "85F1C4A00A614FCABE69A99628A334A7"}';
+      if(result.indexOf('"shopUuid":') === -1) {
+        this.showToast('二维码有误')
+        return false
+      }
+      let shopUuid = JSON.parse(result).shopUuid
+      console.log(shopUuid)
+      if (shopUuid) {
+        sessionStorage.setItem('shopUuid', shopUuid)
+        this.$router.push('/channel')
+      }
+      // const reader = new FileReader();
+      // reader.onload = function(e){
+      //   document.getElementById('qrcodeImg').setAttribute('src', e.target.result)
+      // }
+      // reader.readAsDataURL(qrcode.files[0])
+    }
 	}
 }
 </script>
 <style scoped>
 	.page-main {
-		position: absolute;
+		position: fixed;
 		left: 0;
 		width: 100%;
 		height: 100%;
 		background: url(../assets/img/yue_bg.png) no-repeat;
 		background-size: 100% 100%;
+    overflow: hidden;
 	}
 	.page-main.collapsed {
 		left: 70%;
@@ -152,7 +173,7 @@ export default {
   	vertical-align: bottom;
   	background-size: cover;
   }
-  .sidebar-menu li a.user::before {
+  .sidebar-menu li a.myaccount::before {
 		background: url(../assets/img/user-circle.png) no-repeat;
   }
   .sidebar-menu li a.problem::before {

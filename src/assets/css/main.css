@@ -4,7 +4,8 @@
 body {
   margin: 0;
   color: #333;
-  font-size: 14px
+  font-size: 14px;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif
 }
 ul {
   padding: 0;
@@ -14,25 +15,16 @@ a {
   text-decoration: none;
   color: inherit;
 }
+input[type="file"] {
+  display: none
+}
 .clearfix:after,
-.clearfix:before,
-.container:after,
-.container:before,
-.container-fluid:after,
-.container-fluid:before {
+.clearfix:before {
   display: table;
-  content: '';
+  content: ''
 }
-.clearfix:after,
-.container:after,
-.container-fluid:after {
+.clearfix:after {
   clear: both
-}
-.container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
 }
 .pull-right {
   float: right
@@ -48,12 +40,6 @@ a {
 }
 .m-b {
   margin-bottom: 15px
-}
-.m-r {
-  margin-right: 15px;
-}
-.m-l {
-  margin-left: 15px;
 }
 .text-center {
   text-align: center
@@ -75,6 +61,12 @@ a {
 .fade-enter {
   opacity: 0;
   transform: translateX(100px);
+}
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f2f3f4;
 }
 .mint-header {
   font-size: 16px
@@ -161,4 +153,7 @@ a[class*="icon"] .mint-cell-text {
 }
 .cell-group .mint-cell-title {
   padding-left: 10px;
+}
+.problem-list .mint-cell-text {
+  font-size: 16px;
 }

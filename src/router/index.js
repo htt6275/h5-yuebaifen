@@ -4,9 +4,14 @@ import signin from '@/pages/signin'
 import signup from '@/pages/signup'
 import agreement from '@/pages/agreement'
 import resetpass from '@/pages/resetpass'
+import modifypass from '@/pages/modifypass'
 import smsLogin from '@/pages/smsLogin'
 import account from '@/pages/account'
 import about from '@/pages/about'
+import problem from '@/pages/problem'
+import records from '@/pages/records'
+import channel from '@/pages/channel'
+import apply from '@/pages/apply'
 
 const routes = [
 	{
@@ -40,9 +45,34 @@ const routes = [
     component: smsLogin
   },
   {
-    path: '/account',
+    path: '/channel',
+    name: '分期渠道',
+    component: channel
+  },
+  {
+    path: '/apply',
+    name: '渠道详情',
+    component: apply
+  },
+  {
+    path: '/myaccount',
     name: '我的账户',
     component: account
+  },
+  {
+    path: '/records',
+    name: '申请记录',
+    component: records
+  },
+  {
+    path: '/modifypass',
+    name: '修改密码',
+    component: modifypass
+  },
+  {
+    path: '/problem',
+    name: '常见问题',
+    component: problem
   },
   {
     path: '/about',
