@@ -9,7 +9,7 @@
 					<mt-field label="确认密码" placeholder="确认密码" type="password" v-model="form.confirmPass"></mt-field>
 				</div>
 				<div class="field-group" style="margin-top: 20px" >
-					<mt-button type="primary" size="large" @click.native="onSubmit">确定</mt-button>
+					<mt-button type="primary" size="large" @click.prevent="onSubmit">确定</mt-button>
 				</div>
 			</form>
 		</div>

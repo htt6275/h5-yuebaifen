@@ -28,7 +28,7 @@
 						</mt-checklist>
 						<router-link to="/agreement" class="server-link">《服务与隐私协议》</router-link>
 					</div>
-					<mt-button type="primary" size="large" class="signup-button" @click.native="onSubmit">立即注册</mt-button>
+					<mt-button type="primary" size="large" class="signup-button" @click.prevent="onSubmit">立即注册</mt-button>
 				</div>
 			</form>
 		</div>

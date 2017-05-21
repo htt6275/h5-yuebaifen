@@ -29,3 +29,17 @@ export const loginBySmsCode = data => { return axios.post('/user/loginByMobileAn
 export const modifyPassword = data => { return axios.post('/user/modifyPassword.json', data) }
 
 export const qcodeDecoder = data => { return instance.post('/user/qcodeDecoder', data) }
+
+export const getShopMechanismInfoList = data => { return axios.post('/appShop/getShopMechanismInfoList.json', data) }
+
+export const getPartList = data => { return axios.post('/order/partList.json', data) }
+
+export const createOrder = data => { return axios.post('/order/createOrder.json', data) }
+
+export const getUserOrderApplyInfo = data => { return axios.post('/order/getUserOrderApplyInfo.json', data) }
+
+export const getCustomerUserInfo = data => { return axios.post('/user/getCustomerUserInfo.json', data) }
+
+export const updateCustomerUserInfo = data => { return axios.post('/user/updateCustomerUserInfo.json', data) }
+
+export const logout = data => { return axios.post('/user/logout.json', data) }

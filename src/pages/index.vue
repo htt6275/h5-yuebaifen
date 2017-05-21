@@ -24,13 +24,13 @@
 			<ul class="sidebar-menu">
 				<li><router-link to="/myaccount" class="myaccount">我的账户</router-link></li>
 				<li><router-link to="/problem" class="problem">常见问题</router-link></li>
-				<li><router-link to="/exit" class="exit">退出登录</router-link></li>
+				<li><a href="javacript:;" class="exit" @click="exit">退出登录</a></li>
 			</ul>
 		</aside>
 	</section>
 </template>
 <script>
-import { qcodeDecoder } from '../api' 
+import { qcodeDecoder, logout } from '../api' 
 export default {
 	data () {
 		return {
@@ -68,11 +68,15 @@ export default {
         sessionStorage.setItem('shopUuid', shopUuid)
         this.$router.push('/channel')
       }
-      // const reader = new FileReader();
-      // reader.onload = function(e){
-      //   document.getElementById('qrcodeImg').setAttribute('src', e.target.result)
-      // }
-      // reader.readAsDataURL(qrcode.files[0])
+    },
+    exit () {
+      let data = {
+        customerSessionId: sessionStorage.getItem('sessionId')
+      }
+      logout(data).then(res => {
+        console.log(res)
+        this.$router.push('/')
+      })
     }
 	}
 }

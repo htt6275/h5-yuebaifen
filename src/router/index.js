@@ -11,7 +11,10 @@ import about from '@/pages/about'
 import problem from '@/pages/problem'
 import records from '@/pages/records'
 import channel from '@/pages/channel'
-import apply from '@/pages/apply'
+import chooseterm from '@/pages/chooseterm'
+import accountinfo from '@/pages/accountinfo'
+import applysubmit from '@/pages/applysubmit'
+import contract from '@/pages/contract'
 
 const routes = [
 	{
@@ -50,14 +53,29 @@ const routes = [
     component: channel
   },
   {
-    path: '/apply',
+    path: '/chooseterm',
     name: '渠道详情',
-    component: apply
+    component: chooseterm
+  },
+  {
+    path: '/applysubmit',
+    name: '申请分期',
+    component: applysubmit
+  },
+  {
+    path: '/contract',
+    name: '分期合同',
+    component: contract
   },
   {
     path: '/myaccount',
     name: '我的账户',
     component: account
+  },
+  {
+    path: '/accountinfo',
+    name: '账户信息',
+    component: accountinfo
   },
   {
     path: '/records',

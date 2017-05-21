@@ -13,7 +13,7 @@
 					</mt-field>
 				</div>
 				<div class="field-group" style="margin-top: 20px" >
-					<mt-button type="primary" size="large" @click.native="onSubmit">确定</mt-button>
+					<mt-button type="primary" size="large" @click.prevent="onSubmit">确定</mt-button>
 				</div>
 			</form>
 		</div>

@@ -7,10 +7,10 @@
 				<p class="logo"><img src="../assets/img/yue_logo.png"></p>
 			</div>
 			<div class="page-bd">
-				<form name="signinForm">
+				<form name="signinForm" class="signinForm">
 					<mt-field label="手机号" placeholder="请输入手机号" type="tel" class="icon_phone" v-model="form.mobile"></mt-field>
 					<mt-field label="密码" placeholder="请输入密码" type="password" class="icon_pass" v-model="form.pass"></mt-field>
-					<mt-button type="default" size="large" class="signin-button" @click.native="onSubmit">登 录</mt-button>
+					<mt-button type="default" size="large" class="signin-button" @click.prevent="onSubmit">登 录</mt-button>
 				</form>
 			</div>
 			<div class="page-ft">
@@ -36,9 +36,9 @@ export default {
 		}
 	},
 	methods: {
-		showToast (error) {
+		showToast (msg) {
 			this.$toast({
-			  message: error.msg,
+			  message: msg,
 			  duration: 1000
 			})
 		},
@@ -64,19 +64,21 @@ export default {
 	    })
     },
 		onSubmit () {
+			let self = this;
 			if (!this.validate.checkForm(this.form)) {
 	      const error = this.validate.errorList[0]
-	      this.showToast(error)
+	      this.showToast(error.msg)
 	      return false
 	    }
 	    let form = {
 	    	mobile: this.form.mobile,
-	    	pass: this.form.pass
+	    	pass: Md5.hex_md5(this.form.pass)
 	    }
+	    console.log(form)
 			requestLogin(form).then(res => {
 				console.log(res)
 				if(res.data.code === 0) {
-					this.showToast('登录成功')
+					self.showToast('登录成功')
 					let result = res.data.result
 					console.log(result.customerSessionId)
 					console.log(result.customerUser)
@@ -84,7 +86,7 @@ export default {
 					sessionStorage.setItem('user', result.customerUser)
 					this.$router.push({ path: '/index' })
 				} else {
-					this.showToast(res.data.message)
+					self.showToast(res.data.message)
 				}
 			})
 			.catch(function (error) {
@@ -113,7 +115,7 @@ export default {
 		color: #fff;
 	}
 	.logo {
-		padding: 20px;
+		padding: 10px;
 		text-align: center
 	}
 	.page-bd {
@@ -130,7 +132,7 @@ export default {
 	}
 	.page-ft {
 		position: absolute;
-		bottom: 0;
+		bottom: 20px;
 		width: 100%;
 		color: #ddd;
 		font-size: 14px

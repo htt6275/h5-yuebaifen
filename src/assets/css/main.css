@@ -18,6 +18,9 @@ a {
 input[type="file"] {
   display: none
 }
+/*input {
+  text-align: right
+}*/
 .clearfix:after,
 .clearfix:before {
   display: table;
@@ -86,12 +89,12 @@ input[type="file"] {
   width: 90px;
 }
 .mint-field-core {
-  color: #fff;
+  color: #333;
   font-size: 14px;
   background: transparent;
 }
-.signup-form .mint-field-core {
-  color: #333;
+.signinForm .mint-field-core {
+  color: #fff;
 }
 .mint-field-other {
   right: -10px;

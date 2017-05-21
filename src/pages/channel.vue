@@ -2,15 +2,15 @@
 <div class="page">
 	<div class="banner"></div>
 	<ul class="channel-list">
-		<li class="channel-item" v-for="channel in channels">
+		<li class="channel-item" v-for="channel in channelList">
 		<!-- 	<mt-cell title="标题文字" label="分期金额" to="/" is-link>
 			  <span>icon 是图片</span>
 			  <img slot="icon" src="../assets/img/purse.png" width="24" height="24">
 			</mt-cell> -->
 			<div class="channel-item-icon"></div>
 			<div class="channel-item-detail" @click="selectChannel(channel)">
-				<p v-text="channel.channelName"></p>
-				<span>分期金额：￥{{channel.minMoney}}-{{channel.maxMoney}}</span>
+				<p v-text="channel.mechanismNickName"></p>
+				<span>分期金额：￥{{channel.lowestAmount}}-{{channel.amount}}</span>
 			</div>
 		</li>
 	</ul>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { getShopMechanismInfoList } from '../api'
 	export default {
 		data () {
 			return {
@@ -42,14 +43,40 @@
 						minMoney:10000,
 						maxMoney:150000
 					}
-				]
+				],
+				channelList: []
 			}
 		},
 		methods: {
+			getMechanismList () {
+				let sessionId = sessionStorage.getItem('sessionId')
+    		let shopUuid = sessionStorage.getItem('shopUuid')
+    		let data = {
+    			shopUuid: shopUuid,
+        	customerSessionId: sessionId
+    		}
+    		getShopMechanismInfoList(data).then(res => {
+    			console.log(res)
+    			if (res.data.code === 0) {
+    				let result = res.data.result;
+	    			let shopId = result.shopData.shopId;
+	    			let shopName = result.shopData.shopName;
+	    			this.channelList = result.shopMechanismInfoVoList;
+    			} else {
+    				 this.$toast({
+							message: res.data.message
+						})
+    			}
+    		})
+			},
 			selectChannel (channel) {
 				console.log(channel)
-				this.$router.push('/apply')
+				sessionStorage.setItem('shopMechanism', JSON.stringify(channel))
+				this.$router.push('/chooseterm')
 			}
+		},
+		mounted () {
+			this.getMechanismList()
 		}
 	}
 </script>

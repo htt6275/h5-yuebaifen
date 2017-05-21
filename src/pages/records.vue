@@ -1,7 +1,7 @@
 <template>						
 <div class="page">
 	<ul class="record-list">
-		<li v-for="record in records" class="record-item">
+		<li v-for="record in recordList" class="record-item">
 			<div class="record-item-date">
 				<img src="../assets/img/dot.png"/><span>{{record.startTime}}</span>
 			</div>
@@ -33,49 +33,38 @@
 </template>
 
 <script>
-	export default{
-		data(){
-			return {
-				records:[
-					{
-						startTime:'2017-05-14 07:09:15',
-						orderNo:'021705140709150330',
-						status:1,
-						applyAmount:'1222元',
-						parts:'12个月'
-					},
-					{
-						startTime:'2017-05-14 07:08:35',
-						orderNo:'021705140708349560',
-						status:2,
-						applyAmount:'1222元',
-						parts:'12个月'
-					},
-					{
-						startTime:'2017-05-14 07:08:05',
-						orderNo:'021705140709150330',
-						status:0,
-						applyAmount:'1222元',
-						parts:'12个月'
-					},
-					{
-						startTime:'2017-05-12 18:33:35',
-						orderNo:'021705140709150330',
-						status:1,
-						applyAmount:'8000元',
-						parts:'12个月'
-					}
-				]
-			}
+import { getUserOrderApplyInfo } from '../api'
+export default{
+	data(){
+		return {
+			recordList: []
 		}
+	},
+	methods: {
+		getRecordList () {
+			let data = {
+				customerSessionId: sessionStorage.getItem('sessionId')
+			}
+			getUserOrderApplyInfo(data).then(res => {
+				console.log(res)
+				if(res.data.code === 0) {
+					this.recordList = res.data.result
+				} else {
+					this.$toast({
+						message: res.data.message
+					})
+				}
+			})
+		}
+	},
+	mounted () {
+		this.getRecordList()
 	}
+}
 </script>
 
 <style scoped>
 	.page {
-		width: 100%;
-		height:100%;
-		position: absolute;
 		background: #f8f8f8;
 	}
 	.record-list {
